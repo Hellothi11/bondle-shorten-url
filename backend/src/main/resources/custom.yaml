@@ -1,0 +1,3 @@
+bondle:
+  webUrl:
+    hash: http://localhost:8080/%s

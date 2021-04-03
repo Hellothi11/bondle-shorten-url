@@ -1,0 +1,11 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:abcd1234}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/shorten_url}
+  jpa:
+    show-sql: true
+
