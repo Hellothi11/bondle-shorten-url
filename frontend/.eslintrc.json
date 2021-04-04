@@ -24,5 +24,7 @@
     "allowImportExportEverywhere": true
   },
   "rules": {
+    "no-unused-vars": "warn",
+    "react/display-name": "off"
   }
 }

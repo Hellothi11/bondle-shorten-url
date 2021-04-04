@@ -1,0 +1,74 @@
+body {
+  background-color: #607D8B;
+}
+
+.content {
+  padding-top: 64px;
+  height: 100vh;
+}
+
+.header {
+  height: 64px;
+}
+
+.header_logo {
+  margin-right: 20px;
+}
+
+.card {
+  min-width: 400px;
+}
+
+.home_container {
+  padding: 20px;
+}
+
+.list_urls_container {
+  width: 50% !important;
+}
+
+.app_menu {
+  margin: 0 !important;
+  border-radius: 0px !important;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 64px !important;
+}
+
+.url_item {
+  padding: 10px 20px 10px 20px !important;
+}
+
+.list_urls {
+  width: 100%;
+}
+
+.card_header {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.label_url {
+  font-size: large;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px #e9ecef;
+  padding: 10px 20px 10px 20px;
+  margin-bottom: 10px;
+}
+
+.extra_button {
+  width: 50%;
+  flex: 1;
+}
+
+.extra_button_wrapper {
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+}
+
+.input_url {
+  width: 100%;
+  margin-bottom: 15px;
+}
