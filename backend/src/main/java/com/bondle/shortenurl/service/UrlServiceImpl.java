@@ -6,10 +6,9 @@ import com.bondle.shortenurl.dto.model.UrlDto;
 import com.bondle.shortenurl.exception.NotFoundException;
 import com.bondle.shortenurl.model.Url;
 import com.bondle.shortenurl.repository.UrlRepository;
-import com.bondle.shortenurl.util.ShortenUrlHash;
-import java.util.concurrent.ThreadLocalRandom;
+import com.bondle.shortenurl.util.Hashids;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,13 +23,21 @@ public class UrlServiceImpl implements UrlService {
   @Autowired
   private PropertiesConfig propertiesConfig;
 
+  @Autowired
+  private UrlMapper urlMapper;
+
+  @Autowired
+  private Hashids hashids;
+
   @Override
-  public UrlDto create(String url) {
-    long randomNum = ThreadLocalRandom.current().nextLong(0L, 10000L);
+  public UrlDto create(String url, String uuid) {
+    long id = urlRepository.generateNextId();
     Url entity = new Url();
+    entity.setId(id);
     entity.setLongUrl(url);
-    entity.setHash(ShortenUrlHash.generateHash(url, randomNum, 6));
-    return UrlMapper.INSTANCE.urlToUrlDto(urlRepository.save(entity))
+    entity.setHash(hashids.encrypt(id));
+    entity.setUuid(uuid);
+    return urlMapper.urlToUrlDto(urlRepository.save(entity))
         .setShortUrl(String.format(propertiesConfig.getConfigValue("bondle.webUrl.hash"), entity.getHash()));
   }
 
@@ -38,5 +45,15 @@ public class UrlServiceImpl implements UrlService {
   public String findUrlByHash(String hash) {
     return urlRepository.findByHash(hash).map(Url::getLongUrl)
         .orElseThrow(() -> new NotFoundException("Unable to find URL to redirect to."));
+  }
+
+  @Override
+  public List<UrlDto> findAllUrlsByUuid(String uuid) {
+    return urlMapper.listUrlsToListDtos(urlRepository.findAllByUuidOrderByCreatedAtDesc(uuid));
+  }
+
+  @Override
+  public void deleteById(Long id) {
+    urlRepository.deleteById(id);
   }
 }

@@ -1,27 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button,
-  Container,
-  Divider,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  List,
-  Menu,
-  Segment,
-  Sidebar,
-  Visibility,
-  Card,
-  Form,
-  Popup,
-} from 'semantic-ui-react';
+import {Button, List, Menu, Sidebar, Popup} from 'semantic-ui-react';
+import axios from '../../utils/axios';
 import styles from './styles.module.css';
-import useFetchListURLs from '../../hooks/useFetchListURLs';
+import {getUUID} from '../../utils/uuid';
 
 const ListUrls = ({visible, onHide}) => {
-  const [urls, error] = useFetchListURLs();
+  const [urls, setUrls] = useState([]);
+  useEffect(() => {
+    if (visible) {
+      axios.get(`/url/${getUUID()}`).then((response) => {
+        setUrls(response.data.payload);
+      });
+    }
+  }, [visible]);
+
+  const deleteURL = (id) => {
+    axios.delete(`/url/${id}`).then(() => {
+      setUrls((prevState) => prevState.filter((u) => u.id !== id));
+    });
+  };
 
   return (
     <Sidebar
@@ -66,6 +64,19 @@ const ListUrls = ({visible, onHide}) => {
                   }
                 />
               </Button.Group>
+              <Popup
+                content="Delete URL"
+                trigger={
+                  <Button
+                    className={styles.button_delete}
+                    color="red"
+                    icon="delete"
+                    onClick={() => {
+                      deleteURL(id);
+                    }}
+                  />
+                }
+              />
             </List.Content>
             <List.Icon name="linkify" size="large" verticalAlign="middle" />
             <List.Content>

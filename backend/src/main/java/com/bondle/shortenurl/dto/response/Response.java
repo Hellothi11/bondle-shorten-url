@@ -1,6 +1,8 @@
 package com.bondle.shortenurl.dto.response;
 
 import com.bondle.shortenurl.util.DateTimeUtil;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +20,7 @@ public class Response<T> {
 
   private Status status;
   private T payload;
-  private Object errors;
+  private List<Object> errors;
   private Object metadata;
 
   public static <T> Response<T> badRequest() {
@@ -31,6 +33,12 @@ public class Response<T> {
     Response<T> response = new Response<>();
     response.setStatus(Status.OK);
     response.setPayload(payload);
+    return response;
+  }
+
+  public static <T> Response<T> ok() {
+    Response<T> response = new Response<>();
+    response.setStatus(Status.OK);
     return response;
   }
 
@@ -71,11 +79,18 @@ public class Response<T> {
   }
 
   public void addErrorMsgToResponse(String errorMsg, Exception ex) {
-    ResponseError error = new ResponseError()
+    ResponseError responseError = new ResponseError()
         .setDetails(errorMsg)
         .setMessage(ex.getMessage())
         .setTimestamp(DateTimeUtil.now());
-    setErrors(error);
+    addError(responseError);
+  }
+
+  public void addError(ResponseError responseError) {
+    if (errors == null) {
+      errors = new ArrayList<>();
+    }
+    errors.add(responseError);
   }
 
   public enum Status {

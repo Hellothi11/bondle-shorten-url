@@ -2,22 +2,7 @@ import React, {useState} from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import styles from './styles.module.css';
 import logo from '../../images/bondle-logo-color.png';
-import {
-  Button,
-  Container,
-  Divider,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  List,
-  Menu,
-  Segment,
-  Sidebar,
-  Visibility,
-  Card,
-  Form,
-} from 'semantic-ui-react';
+import {Icon, Image, Menu, Sidebar} from 'semantic-ui-react';
 import ListUrls from './ListUrls';
 import FormCreateUrl from './FormCreateUrl';
 
@@ -26,6 +11,7 @@ export default function App() {
   const openMyURLs = () => {
     setVisible(true);
   };
+
   return (
     <div className={styles.body}>
       <Menu fixed="top" inverted className={styles.app_menu}>

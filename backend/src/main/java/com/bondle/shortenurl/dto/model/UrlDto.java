@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class UrlDto {
+
   private Long id;
   private String longUrl;
   private String shortUrl;

@@ -14,7 +14,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class ResponseError {
+
   private Date timestamp;
   private String message;
   private String details;
+  private String fieldName;
 }

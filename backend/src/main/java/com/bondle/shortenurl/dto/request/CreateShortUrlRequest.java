@@ -1,5 +1,7 @@
 package com.bondle.shortenurl.dto.request;
 
+import com.bondle.shortenurl.dto.validator.URLConstraint;
+import javax.validation.Valid;
 import lombok.Data;
 
 /**
@@ -7,5 +9,10 @@ import lombok.Data;
  */
 @Data
 public class CreateShortUrlRequest {
+
+  @Valid
+  @URLConstraint
   private String url;
+
+  private String uuid;
 }

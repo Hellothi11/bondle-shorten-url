@@ -1,5 +1,5 @@
 body {
-  background-color: #607D8B;
+  background-image: url("../../images/body-bg.jpg");
 }
 
 .content {
@@ -71,4 +71,8 @@ body {
 .input_url {
   width: 100%;
   margin-bottom: 15px;
+}
+
+.button_delete {
+  margin-left: 10px !important;
 }

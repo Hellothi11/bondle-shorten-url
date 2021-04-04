@@ -2,31 +2,44 @@ import React, {useState, useRef} from 'react';
 import {
   Container,
   Card,
-  Form,
   Button,
   Input,
   Icon,
-  Segment,
   Loader,
+  Message,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import styles from './styles.module.css';
-import useShortenURL from '../../hooks/useShortenURL';
+import {getUUID} from '../../utils/uuid';
+import axios from '../../utils/axios';
 
 const FormCreateUrl = ({openMyURLs}) => {
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState(null);
-  const shortenUrl = () => {
+  const [errors, setErrors] = useState(null);
+  const shortenUrl = (longUrl) => {
+    console.log('xxx', longUrl);
+    let url = longUrl;
+    if (!longUrl.startsWith('http')) {
+      url = `http://${longUrl}`;
+    }
     setLoading(true);
-    setTimeout(() => {
-      setUrl({
-        id: 1,
-        longUrl: 'https://google.com.vn',
-        shortUrl: 'https://link.bondle.com/82y1h',
+    axios
+      .post('/url', {
+        uuid: getUUID(),
+        url,
+      })
+      .then((response) => {
+        setErrors(null);
+        setUrl(response.data.payload);
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response && error.response.data.errors) {
+          setErrors(error.response.data.errors);
+        }
+        setLoading(false);
       });
-      setLoading(false);
-    }, 5000);
   };
   const inputUrl = useRef();
 
@@ -85,6 +98,9 @@ const FormCreateUrl = ({openMyURLs}) => {
               <Icon name="arrow alternate circle right" />
               <input type="text" ref={inputUrl} />
             </Input>
+            {errors && errors.length > 0 && (
+              <Message error list={errors.map((e) => e.message)} />
+            )}
             <Button
               color="black"
               fluid

@@ -12,13 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 /**
  * @author nguyen.tam.thi at 16:30 2021-04-01
  */
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @Table(name = "url")
 @EntityListeners(EntityListener.class)
 public class Url implements BaseEntity {
@@ -33,6 +33,9 @@ public class Url implements BaseEntity {
 
   @Column(name = "hash")
   private String hash;
+
+  @Column(name = "uuid")
+  private String uuid;
 
   @Column(name = "created_at")
   private Timestamp createdAt;
