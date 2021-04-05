@@ -18,7 +18,6 @@ const FormCreateUrl = ({openMyURLs}) => {
   const [url, setUrl] = useState(null);
   const [errors, setErrors] = useState(null);
   const shortenUrl = (longUrl) => {
-    console.log('xxx', longUrl);
     let url = longUrl;
     if (!longUrl.startsWith('http')) {
       url = `http://${longUrl}`;
@@ -37,6 +36,8 @@ const FormCreateUrl = ({openMyURLs}) => {
       .catch((error) => {
         if (error.response && error.response.data.errors) {
           setErrors(error.response.data.errors);
+        } else {
+          setErrors([{message: 'Network has a problem'}]);
         }
         setLoading(false);
       });
