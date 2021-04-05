@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:10.6
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: abcd1234
+      POSTGRES_DB: shorten_url
+    volumes:
+      - ./database/initdb:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: shorten-url-backend:latest
+    depends_on:
+      - db
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/shorten_url
+      - DB_USERNAME=root
+      - DB_PASSWORD=abcd1234
+    ports:
+      - 8080:8080
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: shorten-url-app:latest
+    ports:
+      - 80:80
+
