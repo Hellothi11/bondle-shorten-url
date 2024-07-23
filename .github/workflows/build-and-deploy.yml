@@ -4,11 +4,16 @@ on:
     secrets:
       TEST_1:
         required: true
+      TEST_3:
+        required: true
     inputs:
       test_2:
         required: true
         type: string
         description: 'Test 2'
+env:
+  TEST_3: ${{ secrets.TEST_3 }}
+
 jobs:
   log:
     runs-on: ubuntu-latest

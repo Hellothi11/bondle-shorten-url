@@ -14,3 +14,4 @@ jobs:
       test_2: good
     secrets:
       TEST_1: huhu
+      TEST_3: dev
