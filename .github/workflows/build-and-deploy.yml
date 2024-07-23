@@ -1,0 +1,17 @@
+name: Build and deploy
+on:
+  workflow_call:
+    secrets:
+      TEST_1: ${{ secrets.TEST_1 }}
+    inputs:
+      test_2:
+        required: true
+        type: string
+        description: 'Test 2'
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log
+        run: |
+          echo "Test 1: ${{ secrets.TEST_1 }} Test 2: ${{ inputs.test_2 }}"

@@ -1,0 +1,14 @@
+name: Push dev
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  push-dev:
+    uses: Hellothi11/bondle-shorten-url/.github/workflows/build-and-deploy.yml@master
+    with:
+      test_2: good
+    secrets:
+      TEST_1: huhu
