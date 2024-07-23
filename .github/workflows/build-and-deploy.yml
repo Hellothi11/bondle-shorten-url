@@ -2,7 +2,8 @@ name: Build and deploy
 on:
   workflow_call:
     secrets:
-      TEST_1: ${{ secrets.TEST_1 }}
+      TEST_1:
+        required: true
     inputs:
       test_2:
         required: true
