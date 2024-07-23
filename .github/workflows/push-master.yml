@@ -5,6 +5,8 @@ on:
     branches:
       - master
 
+env:
+  TEST_3: master
 jobs:
   push-dev:
     uses: Hellothi11/bondle-shorten-url/.github/workflows/build-and-deploy.yml@master

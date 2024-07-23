@@ -16,3 +16,4 @@ jobs:
       - name: Log
         run: |
           echo "Test 1: ${{ secrets.TEST_1 }} Test 2: ${{ inputs.test_2 }}"
+          echo ${TEST_3}

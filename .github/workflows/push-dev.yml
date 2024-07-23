@@ -5,9 +5,11 @@ on:
     branches:
       - dev
 
+env:
+  TEST_3: dev
 jobs:
   push-dev:
-    uses: Hellothi11/bondle-shorten-url/.github/workflows/build-and-deploy.yml@master
+    uses: Hellothi11/bondle-shorten-url/.github/workflows/build-and-deploy.yml@dev
     with:
       test_2: good
     secrets:
